@@ -15,6 +15,7 @@ public class Main {
         List<Card> deck = new ArrayList<Card>();
         List<Card> playDeck = new ArrayList<Card>();
         List<Player> players = new ArrayList<Player>();
+        boolean won = false;
 
         //this creates the 52 card deck and prints it out
         for (Suit st : Suit.values()) {
@@ -33,7 +34,10 @@ public class Main {
         int numPlayers = myScan.nextInt();
 
         for (int i = 0; i < numPlayers; i++){
-            players.add(new Player());
+            //players.add(new Player());
+            System.out.println("Player " + i +", what's your name?");
+            String nextName = myScan.next();
+            players.add(new Player(nextName));
         }
 
         //deals cards and displays results
@@ -47,12 +51,32 @@ public class Main {
         System.out.println("DECK: " + deck);
         System.out.println("PLAYDECK: " + playDeck);
 
+        while (!won) {
+            for (int i = 0; i < players.size(); i ++){
+                System.out.println("This is " + players.get(i).getName() + "'s turn.");
+                System.out.println("PLAYDECK: " + playDeck.get(playDeck.size()-1));
+                while (!GamePlay.turn(players.get(i), playDeck, deck)){}
+                if (players.get(i).getSize() == 0) {
+                    won = true;
+                    System.out.println("Player " + (i+1) + " won!");
+                    break;
+                }
+                if (deck.size() == 0){
+                    for (int j = 0; j < playDeck.size()-1; j++){
+                        deck.add(playDeck.remove(j));
+                    }
+                    System.out.println("Deck has been refilled with playdeck stack.");
+                }
+            }
+
+        }
+
         //turn for first player, runs until a valid move is played
-        while (!GamePlay.turn(players.get(0), playDeck, deck)){}
+//        while (!GamePlay.turn(players.get(0), playDeck, deck)){}
 
         //printing check for playDeck and the hands for all the players.
-        System.out.println("PLAYDECK: " + playDeck);
-        GamePlay.printCards(deck, players);
+//        System.out.println("PLAYDECK: " + playDeck);
+//        GamePlay.printCards(deck, players);
 
 
     }

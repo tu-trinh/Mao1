@@ -11,6 +11,12 @@ public class Player {
         name = "Player " + playerNum++;
     }
 
+    public Player(String nameIn){
+        hand = new ArrayList<Card>();
+        name = nameIn;
+        playerNum++;
+    }
+
     public String toString() {
         return name;
     }
@@ -27,5 +33,13 @@ public class Player {
 
     public List<Card> displayHand(){
         return hand;
+    }
+
+    public int getSize(){
+        return hand.size();
+    }
+
+    public String getName(){
+        return name;
     }
 }

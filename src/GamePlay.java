@@ -40,13 +40,13 @@ public class GamePlay {
                     playDeckIn.add(playerIn.displayHand().get(i)); //adds card to playDeck
                     playerIn.playCard(playerIn.displayHand().get(i));//removes card from player's hand
                     // prompts player to say something and displays for all to see
-                    System.out.println("Say something?");
-                    String answer = myScan.nextLine();
-                    if (answer.equalsIgnoreCase("No")) {
-                        System.out.println(playerIn + " has nothing to say.");
-                    } else {
-                        System.out.println(playerIn + " says " + answer + ".");
-                    }
+//                    System.out.println("Say something?");
+//                    String answer = myScan.nextLine();
+//                    if (answer.equalsIgnoreCase("No")) {
+//                        System.out.println(playerIn + " has nothing to say.");
+//                    } else {
+//                        System.out.println(playerIn + " says " + answer + ".");
+//                    }
                     return true;
                 }
                 else{//occurs if card is in hand but suit/value does not match
@@ -73,12 +73,12 @@ public class GamePlay {
     public static void draw(Player playerIn, List<Card> deckIn){
         playerIn.addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
         // prompts player to say something and displays for all to see
-        System.out.println("Say something?");
-        String answer = myScan.nextLine();
-        if (answer.equalsIgnoreCase("No")) {
-            System.out.println(playerIn + " has nothing to say.");
-        } else {
-            System.out.println(playerIn + " says " + answer + ".");
-        }
+//        System.out.println("Say something?");
+//        String answer = myScan.nextLine();
+//        if (answer.equalsIgnoreCase("No")) {
+//            System.out.println(playerIn + " has nothing to say.");
+//        } else {
+//            System.out.println(playerIn + " says " + answer + ".");
+//        }
     }
 }
