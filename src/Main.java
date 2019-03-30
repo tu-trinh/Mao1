@@ -34,7 +34,8 @@ public class Main {
         System.out.println("DECK: " + deck);
         System.out.println("PLAYDECK: " + playDeck);
 
-        turn(players.get(0), playDeck);
+        while (!turn(players.get(0), playDeck)){}
+
         System.out.println("PLAYDECK: " + playDeck);
         printCards(deck, players);
 
@@ -58,7 +59,7 @@ public class Main {
         }
     }
 
-    public static void turn(Player playerIn, List<Card> playDeckIn){
+    public static boolean turn(Player playerIn, List<Card> playDeckIn){
         Scanner myScan = new Scanner(System.in);
         System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
         String cardChosen = myScan.nextLine();
@@ -67,16 +68,19 @@ public class Main {
                 if (isValidMove(playerIn.displayHand().get(i), playDeckIn)){
                     playDeckIn.add(playerIn.displayHand().get(i));
                     playerIn.playCard(playerIn.displayHand().get(i));
-                    return;
+//                    System.out.println("Card has been removed and added to playdeck");
+//                    System.out.println(playDeckIn);
+//                    System.out.println(playerIn.displayHand());
+                    return true;
                 }
                 else{
                     System.out.println("Invalid move. This cannot be played.");
-                    turn(playerIn, playDeckIn);
+                    return false;
                 }
             }
         }
         System.out.println("Invalid move. You do not own this card.");
-        turn(playerIn, playDeckIn);
+        return false;
 
     }
 
