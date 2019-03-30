@@ -3,25 +3,20 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Card[][] deck = new Card[4][13];
+        List<Card> deck = new ArrayList<Card>();
         List<Player> players = new ArrayList<Player>();
 
         //this creates the 52 card deck and prints it out
-        int i = 0;
-        int j = 0;
         for (Suit st : Suit.values()) {
-            j = 0;
             for (Value val : Value.values()) {
-                deck[i][j++] = new Card(st, val);
+                deck.add(new Card(st, val));
             }
-            i++;
         }
-        for (Card[] row : deck) {
-            for (Card card : row) {
+        for (Card card : deck) {
                 System.out.println(card);
-            }
         }
+    }
+
 
 
     }
-}
