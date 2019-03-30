@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GamePlay {
+    static Scanner myScan = new Scanner(System.in);
 
     //deals 7 random  cards to each player --> should eventually change the #cards to adjust for #players
     public static void dealCards(List<Card> deckIn, List<Player> playersIn){
@@ -11,7 +12,6 @@ public class GamePlay {
                 playersIn.get(i).addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
             }
         }
-
     }
 
     //prints out all the cards for all the players
@@ -26,7 +26,6 @@ public class GamePlay {
     //also adds played card to playdeck and removes it from the player's hand
     public static boolean turn(Player playerIn, List<Card> playDeckIn, List<Card> deckIn){
         //takes in what the user would like to play
-        Scanner myScan = new Scanner(System.in);
         System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
         String cardChosen = myScan.nextLine();
         if (cardChosen.equalsIgnoreCase("DRAW")){
@@ -40,6 +39,14 @@ public class GamePlay {
                 if (isValidMove(playerIn.displayHand().get(i), playDeckIn)){//checks if card can be played
                     playDeckIn.add(playerIn.displayHand().get(i)); //adds card to playDeck
                     playerIn.playCard(playerIn.displayHand().get(i));//removes card from player's hand
+                    // prompts player to say something and displays for all to see
+                    System.out.println("Say something?");
+                    String answer = myScan.nextLine();
+                    if (answer.equalsIgnoreCase("No")) {
+                        System.out.println(playerIn + " has nothing to say.");
+                    } else {
+                        System.out.println(playerIn + " says " + answer + ".");
+                    }
                     return true;
                 }
                 else{//occurs if card is in hand but suit/value does not match
@@ -51,7 +58,6 @@ public class GamePlay {
         //occurs if card is not in hand at all
         System.out.println("Invalid move. You do not own this card.");
         return false;
-
     }
 
     //checks if the card chosen and the last card in the play deck have either a matching value or a matching suit
@@ -66,5 +72,13 @@ public class GamePlay {
     //takes a random card from the Deck and adds it to the player's hand
     public static void draw(Player playerIn, List<Card> deckIn){
         playerIn.addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
+        // prompts player to say something and displays for all to see
+        System.out.println("Say something?");
+        String answer = myScan.nextLine();
+        if (answer.equalsIgnoreCase("No")) {
+            System.out.println(playerIn + " has nothing to say.");
+        } else {
+            System.out.println(playerIn + " says " + answer + ".");
+        }
     }
 }

@@ -3,9 +3,16 @@ import java.util.List;
 
 public class Player {
     private List<Card> hand;
+    private String name;
+    private static int playerNum = 1;
 
     public Player() {
         hand = new ArrayList<Card>();
+        name = "Player " + playerNum++;
+    }
+
+    public String toString() {
+        return name;
     }
 
     public void addCard(Card cardIn){
@@ -21,6 +28,4 @@ public class Player {
     public List<Card> displayHand(){
         return hand;
     }
-
-
 }
