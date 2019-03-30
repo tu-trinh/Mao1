@@ -41,7 +41,7 @@ public class Main {
         System.out.println("PLAYDECK: " + playDeck);
 
         //turn for first player, runs until a valid move is played
-        while (!GamePlay.turn(players.get(0), playDeck)){}
+        while (!GamePlay.turn(players.get(0), playDeck, deck)){}
 
         //printing check for playDeck and the hands for all the players.
         System.out.println("PLAYDECK: " + playDeck);

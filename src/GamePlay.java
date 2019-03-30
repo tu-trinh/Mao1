@@ -24,11 +24,15 @@ public class GamePlay {
 
     //returns true if the move was valid (checks card validity and whether player has card)
     //also adds played card to playdeck and removes it from the player's hand
-    public static boolean turn(Player playerIn, List<Card> playDeckIn){
+    public static boolean turn(Player playerIn, List<Card> playDeckIn, List<Card> deckIn){
         //takes in what the user would like to play
         Scanner myScan = new Scanner(System.in);
         System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
         String cardChosen = myScan.nextLine();
+        if (cardChosen.equalsIgnoreCase("DRAW")){
+            draw(playerIn, deckIn);
+            return true;
+        }
 
         //checks if card is valid and acts accordingly
         for (int i = 0; i < playerIn.displayHand().size(); i++){
@@ -59,7 +63,8 @@ public class GamePlay {
         return false;
     }
 
-    public static void draw(){
-
+    //takes a random card from the Deck and adds it to the player's hand
+    public static void draw(Player playerIn, List<Card> deckIn){
+        playerIn.addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
     }
 }
