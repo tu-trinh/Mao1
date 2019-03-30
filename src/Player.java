@@ -18,5 +18,4 @@ public class Player {
         return hand.size();
     }
 
-
 }
