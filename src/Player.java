@@ -18,4 +18,10 @@ public class Player {
         return hand.size();
     }
 
+    public List<Card> displayHand(){
+        return hand;
+    }
+
+
+
 }
