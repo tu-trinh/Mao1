@@ -33,4 +33,7 @@ public class Card {
     public String toString() {
         return value + " of " + suit;
     }
+
+    public Suit getSuit() {return suit;}
+    public Value getValue() {return value;}
 }

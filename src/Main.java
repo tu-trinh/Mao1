@@ -63,12 +63,28 @@ public class Main {
         System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
         String cardChosen = myScan.nextLine();
         for (int i = 0; i < playerIn.displayHand().size(); i++){
-            if (cardChosen.equalsIgnoreCase(playerIn.displayHand().get(i).toString())){
-                playDeckIn.add(playerIn.displayHand().get(i));
-                playerIn.playCard(playerIn.displayHand().get(i));
+            if (cardChosen.equalsIgnoreCase(playerIn.displayHand().get(i).toString())){ //checking if card is in hand
+                if (isValidMove(playerIn.displayHand().get(i), playDeckIn)){
+                    playDeckIn.add(playerIn.displayHand().get(i));
+                    playerIn.playCard(playerIn.displayHand().get(i));
+                    return;
+                }
+                else{
+                    System.out.println("Invalid move. This cannot be played.");
+                    turn(playerIn, playDeckIn);
+                }
             }
         }
+        System.out.println("Invalid move. You do not own this card.");
+        turn(playerIn, playDeckIn);
 
+    }
+
+    public static boolean isValidMove(Card cardIn, List<Card> playDeckIn){
+        if (cardIn.getSuit().equals(playDeckIn.get(playDeckIn.size()-1).getSuit()) || cardIn.getValue().equals(playDeckIn.get(playDeckIn.size()-1).getValue())){
+            return true;
+        }
+        return false;
     }
 
 }
