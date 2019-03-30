@@ -13,7 +13,7 @@ public class Player {
     }
 
     // removes specified card and returns # of cards left
-    public int removeCard(Card cardIn){
+    public int playCard(Card cardIn){
         hand.remove(cardIn);
         return hand.size();
     }
@@ -21,7 +21,6 @@ public class Player {
     public List<Card> displayHand(){
         return hand;
     }
-
 
 
 }

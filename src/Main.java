@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner myScan = new Scanner(System.in);
         List<Card> deck = new ArrayList<Card>();
+        List<Card> playDeck = new ArrayList<Card>();
         List<Player> players = new ArrayList<Player>();
 
         //this creates the 52 card deck and prints it out
@@ -14,9 +15,10 @@ public class Main {
                 deck.add(new Card(st, val));
             }
         }
-        for (Card card : deck) {
-                System.out.println(card);
-        }
+//        prints out all the cards in the deck
+//        for (Card card : deck) {
+//                System.out.println(card);
+//        }
         System.out.println("Enter how many players: ");
         int numPlayers = myScan.nextInt();
 
@@ -26,7 +28,17 @@ public class Main {
 
         dealCards(deck, players);
         printCards(deck, players);
-        System.out.println(deck);
+
+        playDeck.add(deck.remove((int) (Math.random()* deck.size())));
+
+        System.out.println("DECK: " + deck);
+        System.out.println("PLAYDECK: " + playDeck);
+
+        turn(players.get(0), playDeck);
+        System.out.println("PLAYDECK: " + playDeck);
+        printCards(deck, players);
+
+
     }
 
     public static void dealCards(List<Card> deckIn, List<Player> playersIn){
@@ -44,6 +56,19 @@ public class Main {
             List<Card> tempHand = player.displayHand();
             System.out.println(tempHand);
         }
+    }
+
+    public static void turn(Player playerIn, List<Card> playDeckIn){
+        Scanner myScan = new Scanner(System.in);
+        System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
+        String cardChosen = myScan.nextLine();
+        for (int i = 0; i < playerIn.displayHand().size(); i++){
+            if (cardChosen.equalsIgnoreCase(playerIn.displayHand().get(i).toString())){
+                playDeckIn.add(playerIn.displayHand().get(i));
+                playerIn.playCard(playerIn.displayHand().get(i));
+            }
+        }
+
     }
 
 }
