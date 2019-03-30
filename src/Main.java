@@ -1,9 +1,16 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Mao mao = new Mao();
+        mao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JLabel emptyLabel = new JLabel("");
+       emptyLabel.setPreferredSize(new Dimension(175, 100));
+        mao.setVisible(true);
         Scanner myScan = new Scanner(System.in);
         List<Card> deck = new ArrayList<Card>();
         List<Card> playDeck = new ArrayList<Card>();
