@@ -24,13 +24,24 @@ public class GamePlay {
 
     //returns true if the move was valid (checks card validity and whether player has card)
     //also adds played card to playdeck and removes it from the player's hand
-    public static boolean turn(Player playerIn, List<Card> playDeckIn, List<Card> deckIn){
+    public static boolean turn(Player playerIn, List<Player> playersIn, List<Card> playDeckIn, List<Card> deckIn){
         //takes in what the user would like to play
         System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
         String cardChosen = myScan.nextLine();
         if (cardChosen.equalsIgnoreCase("DRAW")){
             draw(playerIn, deckIn);
             return true;
+        }
+        if (cardChosen.equalsIgnoreCase("PENALTY")){
+            castPenalty(deckIn, playersIn);
+            System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
+            String cardChosen2 = myScan.nextLine();
+            cardChosen = cardChosen2;
+            if (cardChosen.equalsIgnoreCase("DRAW")){
+                draw(playerIn, deckIn);
+                return true;
+            }
+
         }
 
         //checks if card is valid and acts accordingly
@@ -86,6 +97,21 @@ public class GamePlay {
 
     public static void penalty(Player playerIn, List<Card> deckIn){
         playerIn.addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
+
+    }
+
+    public static void castPenalty(List<Card> deckIn, List<Player> playersIn){
+        System.out.println("Who should be penalized?");
+        String player = myScan.nextLine();
+        System.out.println("What is the cause of the penalty?");
+        String reason = myScan.nextLine();
+        for (int i = 0; i < playersIn.size(); i++){
+            if (player.equalsIgnoreCase(playersIn.get(i).getName())){
+                playersIn.get(i).addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
+                System.out.println(playersIn.get(i).getName() + " has incurred a one card penalty for " + reason);
+            }
+        }
+
 
     }
 }

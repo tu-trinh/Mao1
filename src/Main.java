@@ -55,10 +55,10 @@ public class Main {
             for (int i = 0; i < players.size(); i ++){
                 System.out.println("This is " + players.get(i).getName() + "'s turn.");
                 System.out.println("PLAYDECK: " + playDeck.get(playDeck.size()-1));
-                GamePlay.turn(players.get(i), playDeck, deck);
+                GamePlay.turn(players.get(i), players, playDeck, deck);
                 if (players.get(i).getSize() == 0) {
                     won = true;
-                    System.out.println(players.get(i).getNaem() + " won!");
+                    System.out.println(players.get(i).getName() + " won!");
                     break;
                 }
                 if (deck.size() == 0){
