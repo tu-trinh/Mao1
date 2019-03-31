@@ -28,10 +28,8 @@ public class GamePlay {
         //takes in what the user would like to play
         System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
         String cardChosen = myScan.nextLine();
-        if (cardChosen.equalsIgnoreCase("DRAW")){
-            draw(playerIn, deckIn);
-            return true;
-        }
+        String declaration = "";
+
         if (cardChosen.equalsIgnoreCase("PENALTY")){
             castPenalty(deckIn, playersIn);
             System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
@@ -39,15 +37,27 @@ public class GamePlay {
             cardChosen = cardChosen2;
             if (cardChosen.equalsIgnoreCase("DRAW")){
                 draw(playerIn, deckIn);
+                System.out.println(playerIn.getName() + " has drawn one card. \n");
                 return true;
             }
 
+        }
+
+        if (cardChosen.equalsIgnoreCase("DRAW")){
+            draw(playerIn, deckIn);
+            System.out.println(playerIn.getName() + " has drawn a card from the deck. \n");
+            return true;
         }
 
         //checks if card is valid and acts accordingly
         for (int i = 0; i < playerIn.displayHand().size(); i++){
             if (cardChosen.equalsIgnoreCase(playerIn.displayHand().get(i).toString())){ //checking if card is in hand
                 if (isValidMove(playerIn.displayHand().get(i), playDeckIn)){//checks if card can be played
+                    while (!declaration.equalsIgnoreCase("no")){
+                        System.out.println("Do you have anything to declare?");
+                        declaration = myScan.nextLine();
+                    }
+
                     playDeckIn.add(playerIn.displayHand().get(i)); //adds card to playDeck
                     playerIn.playCard(playerIn.displayHand().get(i));//removes card from player's hand
                     // prompts player to say something and displays for all to see
@@ -58,17 +68,18 @@ public class GamePlay {
 //                    } else {
 //                        System.out.println(playerIn + " says " + answer + ".");
 //                    }
+                    System.out.println(playerIn.getName() + " has played the " + cardChosen +  ".\n");
                     return true;
                 }
                 else{//occurs if card is in hand but suit/value does not match
-                    System.out.println("Invalid move. This cannot be played. You've incurred a one card penalty.");
+                    System.out.println("Invalid move. This cannot be played. You've incurred a one card penalty. \n");
                     penalty(playerIn, deckIn);
                     return false;
                 }
             }
         }
         //occurs if card is not in hand at all
-        System.out.println("Invalid move. You do not own this card. You've incurred a one card penalty.");
+        System.out.println("Invalid move. You do not own this card. You've incurred a one card penalty. \n");
         penalty(playerIn, deckIn);
         return false;
     }
