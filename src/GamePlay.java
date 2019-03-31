@@ -50,13 +50,15 @@ public class GamePlay {
                     return true;
                 }
                 else{//occurs if card is in hand but suit/value does not match
-                    System.out.println("Invalid move. This cannot be played.");
+                    System.out.println("Invalid move. This cannot be played. You've incurred a one card penalty.");
+                    penalty(playerIn, deckIn);
                     return false;
                 }
             }
         }
         //occurs if card is not in hand at all
-        System.out.println("Invalid move. You do not own this card.");
+        System.out.println("Invalid move. You do not own this card. You've incurred a one card penalty.");
+        penalty(playerIn, deckIn);
         return false;
     }
 
@@ -80,5 +82,10 @@ public class GamePlay {
 //        } else {
 //            System.out.println(playerIn + " says " + answer + ".");
 //        }
+    }
+
+    public static void penalty(Player playerIn, List<Card> deckIn){
+        playerIn.addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
+
     }
 }

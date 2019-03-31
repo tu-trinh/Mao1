@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Mao mao = new Mao();
-        mao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JLabel emptyLabel = new JLabel("");
-       emptyLabel.setPreferredSize(new Dimension(175, 100));
-        mao.setVisible(true);
+//        Mao mao = new Mao();
+//        mao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        JLabel emptyLabel = new JLabel("");
+//       emptyLabel.setPreferredSize(new Dimension(175, 100));
+//        mao.setVisible(true);
         Scanner myScan = new Scanner(System.in);
         List<Card> deck = new ArrayList<Card>();
         List<Card> playDeck = new ArrayList<Card>();
@@ -35,7 +35,7 @@ public class Main {
 
         for (int i = 0; i < numPlayers; i++){
             //players.add(new Player());
-            System.out.println("Player " + i +", what's your name?");
+            System.out.println("Player " + (i+1) +", what's your name?");
             String nextName = myScan.next();
             players.add(new Player(nextName));
         }
@@ -55,10 +55,10 @@ public class Main {
             for (int i = 0; i < players.size(); i ++){
                 System.out.println("This is " + players.get(i).getName() + "'s turn.");
                 System.out.println("PLAYDECK: " + playDeck.get(playDeck.size()-1));
-                while (!GamePlay.turn(players.get(i), playDeck, deck)){}
+                GamePlay.turn(players.get(i), playDeck, deck);
                 if (players.get(i).getSize() == 0) {
                     won = true;
-                    System.out.println("Player " + (i+1) + " won!");
+                    System.out.println(players.get(i).getNaem() + " won!");
                     break;
                 }
                 if (deck.size() == 0){
