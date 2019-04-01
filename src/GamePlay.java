@@ -70,7 +70,7 @@ public class GamePlay {
                     playDeckIn.add(playerIn.displayHand().get(i)); //adds card to playDeck
                     playerIn.playCard(playerIn.displayHand().get(i));//removes card from player's hand
                     // penalizes for forgetting to say mao with one card
-                    if (playerIn.displayHand().size() == 1 && declaration.equalsIgnoreCase("no")) {
+                    if (playerIn.displayHand().size() == 1 && !declaration.equalsIgnoreCase("mao")) {
                         System.out.println("You've failed to say \"mao.\" You've incurred a one card penalty. \n");
                         penalty(playerIn, deckIn);
                         return false;
