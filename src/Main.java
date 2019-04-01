@@ -26,7 +26,7 @@ public class Main {
         List<Player> players = new ArrayList<Player>();
         boolean won = false;
 
-        //this creates the 52 card deck and prints it out
+        //this creates the 52 card deck
         for (Suit st : Suit.values()) {
             for (Value val : Value.values()) {
                 deck.add(new Card(st, val));
@@ -48,7 +48,7 @@ public class Main {
 
         //deals cards and displays results
         GamePlay.dealCards(deck, players);
-        GamePlay.printCards(deck, players);
+//        GamePlay.printCards(deck, players);
 
         //takes a card from the deck to be the first card of the playDeck (beginning of game)
         playDeck.add(deck.remove((int) (Math.random() * deck.size())));

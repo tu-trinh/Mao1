@@ -4,11 +4,22 @@ import java.util.Scanner;
 public class GamePlay {
     static Scanner myScan = new Scanner(System.in);
 
-    //deals 7 random  cards to each player --> should eventually change the #cards to adjust for #players
+    //deals 7 random  cards to each player, also changes the # of cards to adjust for #players
     public static void dealCards(List<Card> deckIn, List<Player> playersIn){
-        for (int j = 0; j<7; j++)
+        int numPlayers = playersIn.size();
+        int numToDeal = 0;
+        if (numPlayers < 4) {
+            numToDeal = 8;
+        } else if (numPlayers == 4) {
+            numToDeal = 7;
+        } else if (numPlayers == 5) {
+            numToDeal = 6;
+        } else if (numPlayers >= 6) {
+            numToDeal = 5;
+        }
+        for (int j = 0; j < numToDeal; j++)
         {
-            for (int i = 0; i < playersIn.size(); i++){
+            for (int i = 0; i < numPlayers; i++){
                 playersIn.get(i).addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
             }
         }
@@ -40,7 +51,6 @@ public class GamePlay {
                 System.out.println(playerIn.getName() + " has drawn one card. \n");
                 return true;
             }
-
         }
 
         if (cardChosen.equalsIgnoreCase("DRAW")){
@@ -53,13 +63,18 @@ public class GamePlay {
         for (int i = 0; i < playerIn.displayHand().size(); i++){
             if (cardChosen.equalsIgnoreCase(playerIn.displayHand().get(i).toString())){ //checking if card is in hand
                 if (isValidMove(playerIn.displayHand().get(i), playDeckIn)){//checks if card can be played
-                    while (!declaration.equalsIgnoreCase("no")){
-                        System.out.println("Do you have anything to declare?");
-                        declaration = myScan.nextLine();
-                    }
+                    // prompts player to say something
+                    System.out.println("Do you have anything to declare?");
+                    declaration = myScan.nextLine();
 
                     playDeckIn.add(playerIn.displayHand().get(i)); //adds card to playDeck
                     playerIn.playCard(playerIn.displayHand().get(i));//removes card from player's hand
+                    // penalizes for forgetting to say mao with one card
+                    if (playerIn.displayHand().size() == 1 && declaration.equalsIgnoreCase("no")) {
+                        System.out.println("You've failed to say \"mao.\" You've incurred a one card penalty. \n");
+                        penalty(playerIn, deckIn);
+                        return false;
+                    }
                     // prompts player to say something and displays for all to see
 //                    System.out.println("Say something?");
 //                    String answer = myScan.nextLine();
@@ -108,7 +123,6 @@ public class GamePlay {
 
     public static void penalty(Player playerIn, List<Card> deckIn){
         playerIn.addCard(deckIn.remove((int) (Math.random()* deckIn.size())));
-
     }
 
     public static void castPenalty(List<Card> deckIn, List<Player> playersIn){
@@ -122,6 +136,5 @@ public class GamePlay {
                 System.out.println(playersIn.get(i).getName() + " has incurred a one card penalty for " + reason);
             }
         }
-
     }
 }
