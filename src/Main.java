@@ -15,8 +15,6 @@ public class Main {
         while (play(playGame)) {
         }
         System.out.println("Thank you for playing!");
-
-
     }
 
     public static boolean play(boolean playIn) {
@@ -32,8 +30,6 @@ public class Main {
                 deck.add(new Card(st, val));
             }
         }
-
-
 
         //takes in # of players and creates a list of players that size
         System.out.println("Enter how many players: ");
@@ -81,7 +77,6 @@ public class Main {
                     System.out.println("Deck has been refilled with playdeck stack.");
                 }
             }
-
         }
         return false;
     }
