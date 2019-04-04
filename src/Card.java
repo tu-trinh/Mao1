@@ -34,6 +34,10 @@ public class Card {
         return value + " of " + suit;
     }
 
-    public Suit getSuit() {return suit;}
-    public Value getValue() {return value;}
+    public Suit getSuit() {
+        return suit;
+    }
+    public Value getValue() {
+        return value;
+    }
 }
