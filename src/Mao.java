@@ -18,8 +18,6 @@
 //    private JLabel player2;
 //    private JLabel player3;
 //    private JLabel player4;
-//    private JLabel playDeck;
-//    private JLabel drawDeck;
 //    public String namesString;
 //    GridLayout layout = new GridLayout(3, 1, 0, 150);
 //
