@@ -31,50 +31,55 @@ public class Main {
             }
         }
 
-        //takes in # of players and creates a list of players that size
-        System.out.println("Enter how many players: ");
-        int numPlayers = myScan.nextInt();
+        // inquires about pvp or pvc
+        System.out.println("(S)ingle player or (M)ultiplayer?");
+        String playType = myScan.nextLine();
+        if (playType.equalsIgnoreCase("M")) {
+            //takes in # of players and creates a list of players that size
+            System.out.println("Enter how many players: ");
+            int numPlayers = myScan.nextInt();
 
-        for (int i = 0; i < numPlayers; i++) {
-            //players.add(new Player());
-            System.out.println("Player " + (i + 1) + ", what's your name?");
-            String nextName = myScan.next();
-            players.add(new Player(nextName));
-        }
+            for (int i = 0; i < numPlayers; i++) {
+                //players.add(new Player());
+                System.out.println("Player " + (i + 1) + ", what's your name?");
+                String nextName = myScan.next();
+                players.add(new Player(nextName));
+            }
 
-        //deals cards and displays results
-        GamePlay.dealCards(deck, players);
+            //deals cards and displays results
+            GamePlay.dealCards(deck, players);
 //        GamePlay.printCards(deck, players);
 
-        //takes a card from the deck to be the first card of the playDeck (beginning of game)
-        playDeck.add(deck.remove((int) (Math.random() * deck.size())));
+            //takes a card from the deck to be the first card of the playDeck (beginning of game)
+            playDeck.add(deck.remove((int) (Math.random() * deck.size())));
 
-        //printing check for deck and playDeck
+            //printing check for deck and playDeck
 //        System.out.println("DECK: " + deck);
-        System.out.println("PLAYDECK: " + playDeck);
+            System.out.println("PLAYDECK: " + playDeck);
 
-        while (!won) {
-            for (int i = 0; i < players.size(); i++) {
-                System.out.println("This is " + players.get(i).getName() + "'s turn.");
-                System.out.println("PLAYDECK: " + playDeck.get(playDeck.size() - 1));
-                GamePlay.turn(players.get(i), players, playDeck, deck);
-                if (players.get(i).getSize() == 0) {
-                    won = true;
-                    System.out.println(players.get(i).getName() + " won!");
-                    System.out.println("Would you like to play again?");
-                    String playAgain = myScan.next();
-                    if (playAgain.equalsIgnoreCase("yes")) {
-                        playIn = true;
-                    } else {
-                        playIn = false;
+            while (!won) {
+                for (int i = 0; i < players.size(); i++) {
+                    System.out.println("This is " + players.get(i).getName() + "'s turn.");
+                    System.out.println("PLAYDECK: " + playDeck.get(playDeck.size() - 1));
+                    GamePlay.turn(players.get(i), players, playDeck, deck);
+                    if (players.get(i).getSize() == 0) {
+                        won = true;
+                        System.out.println(players.get(i).getName() + " won!");
+                        System.out.println("Would you like to play again?");
+                        String playAgain = myScan.next();
+                        if (playAgain.equalsIgnoreCase("yes")) {
+                            playIn = true;
+                        } else {
+                            playIn = false;
+                        }
+                        return playIn;
                     }
-                    return playIn;
-                }
-                if (deck.size() == 0) {
-                    for (int j = 0; j < playDeck.size() - 1; j++) {
-                        deck.add(playDeck.remove(j));
+                    if (deck.size() == 0) {
+                        for (int j = 0; j < playDeck.size() - 1; j++) {
+                            deck.add(playDeck.remove(j));
+                        }
+                        System.out.println("Deck has been refilled with playdeck stack.");
                     }
-                    System.out.println("Deck has been refilled with playdeck stack.");
                 }
             }
         }
