@@ -106,10 +106,15 @@ public class GamePlay {
         String cardChosen = myScan.nextLine();
         String declaration = "";
 
-        // computer chooses a card - MUST ADD VALIDITY CHECK
+        // computer chooses a valid card
         int cardIndex = (int)(Math.random() * deckIn.size());
-        System.out.println(playerIn.getName() + " has played the " + cardChosen +  ".\n");
+        do {
+            isValidMove(deckIn.get(cardIndex), playDeckIn);
+            cardIndex = (int)(Math.random() * deckIn.size());
+        } while (isValidMove(deckIn.get(cardIndex), playDeckIn) == false);
+        System.out.println(playerIn.getName() + " has played the " + cardChosen + ".\n");
         // return true;
+        // computer must draw --> SEQUENTIAL SEARCH??
 
         if (cardChosen.equalsIgnoreCase("PENALTY")){
             castPenalty(deckIn, playersIn);
