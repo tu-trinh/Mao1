@@ -100,78 +100,26 @@ public class GamePlay {
     }
 
     // computer's turn to play
-    public static boolean compTurn(Player playerIn, List<Player> playersIn, List<Card> playDeckIn, List<Card> deckIn) {
-        //takes in what the user would like to play - OBSOLETE
-        System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
-        String cardChosen = myScan.nextLine();
-        String declaration = "";
-
-        // computer chooses a valid card
-        int cardIndex = (int)(Math.random() * deckIn.size());
-        do {
-            isValidMove(deckIn.get(cardIndex), playDeckIn);
-            cardIndex = (int)(Math.random() * deckIn.size());
-        } while (isValidMove(deckIn.get(cardIndex), playDeckIn) == false);
-        System.out.println(playerIn.getName() + " has played the " + cardChosen + ".\n");
-        // return true;
-        // computer must draw --> SEQUENTIAL SEARCH??
-
-        if (cardChosen.equalsIgnoreCase("PENALTY")){
-            castPenalty(deckIn, playersIn);
-            System.out.println("What would you like to play? Your cards are: " + playerIn.displayHand());
-            String cardChosen2 = myScan.nextLine();
-            cardChosen = cardChosen2;
-            if (cardChosen.equalsIgnoreCase("DRAW")){
+    public static boolean compTurn(Player playerIn, List<Card> playDeckIn, List<Card> deckIn) {
+        // computer either plays a valid card or draws
+        int cardIndex = 0;
+        for (int i = 0; i < deckIn.size(); i++) {
+            boolean valid = isValidMove(deckIn.get(i), playDeckIn);
+            if (valid) {
+                cardIndex = i;
+                break;
+            } else if (i == deckIn.size() - 1) {
                 draw(playerIn, deckIn);
-                System.out.println(playerIn.getName() + " has drawn one card. \n");
-                return true;
+                System.out.println(playerIn.getName() + " has drawn one card from the deck. \n");
             }
         }
-
-        if (cardChosen.equalsIgnoreCase("DRAW")){
-            draw(playerIn, deckIn);
-            System.out.println(playerIn.getName() + " has drawn a card from the deck. \n");
-            return true;
+        playerIn.playCard(playerIn.displayHand().get(cardIndex));
+        System.out.println(playerIn.getName() + " has played the " + deckIn.get(cardIndex) + ".");
+        // computer can declare Mao
+        if (deckIn.size() == 1) {
+            System.out.println("Mao.");
         }
-
-        //checks if card is valid and acts accordingly
-        for (int i = 0; i < playerIn.displayHand().size(); i++){
-            if (cardChosen.equalsIgnoreCase(playerIn.displayHand().get(i).toString())){ //checking if card is in hand
-                if (isValidMove(playerIn.displayHand().get(i), playDeckIn)){//checks if card can be played
-                    // prompts player to say something
-                    System.out.println("Do you have anything to declare?");
-                    declaration = myScan.nextLine();
-
-                    playDeckIn.add(playerIn.displayHand().get(i)); //adds card to playDeck
-                    playerIn.playCard(playerIn.displayHand().get(i));//removes card from player's hand
-                    // penalizes for forgetting to say mao with one card
-                    if (playerIn.displayHand().size() == 1 && !declaration.equalsIgnoreCase("mao")) {
-                        System.out.println("You've failed to say \"mao.\" You've incurred a one card penalty. \n");
-                        penalty(playerIn, deckIn);
-                        return false;
-                    }
-                    // prompts player to say something and displays for all to see
-//                    System.out.println("Say something?");
-//                    String answer = myScan.nextLine();
-//                    if (answer.equalsIgnoreCase("No")) {
-//                        System.out.println(playerIn + " has nothing to say.");
-//                    } else {
-//                        System.out.println(playerIn + " says " + answer + ".");
-//                    }
-                    System.out.println(playerIn.getName() + " has played the " + cardChosen +  ".\n");
-                    return true;
-                }
-                else{//occurs if card is in hand but suit/value does not match
-                    System.out.println("Invalid move. This cannot be played. You've incurred a one card penalty. \n");
-                    penalty(playerIn, deckIn);
-                    return false;
-                }
-            }
-        }
-        //occurs if card is not in hand at all
-        System.out.println("Invalid move. You do not own this card. You've incurred a one card penalty. \n");
-        penalty(playerIn, deckIn);
-        return false;
+        return true;
     }
 
     //checks if the card chosen and the last card in the play deck have either a matching value or a matching suit

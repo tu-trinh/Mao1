@@ -105,8 +105,8 @@ public class Main {
                     System.out.println("This is " + players.get(i).getName() + "'s turn.");
                     System.out.println("PLAYDECK: " + playDeck.get(playDeck.size() - 1));
                     // behold, el sentient computer
-                    if (i == players.size() - 1) {
-                        // computer decisions must be in GamePlay
+                    if (players.size() == 2) {
+                        GamePlay.compTurn(players.get(i), playDeck, deck);
                     }
                     GamePlay.turn(players.get(i), players, playDeck, deck);
                     if (players.get(i).getSize() == 0) {
